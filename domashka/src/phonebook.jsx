@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {connect} from 'react-redux'
 // import { v4 } from "uuid";
 import Filter from './Components/Filter/Filter'
 import ContactForm from './Components/ContactForm/ContactForm'
 import ContactListItem from './Components/ContactListItem/ContactListItem'
-import * as actions from './Components/redux/contacts/contact-action'
+import contactSelectors from './Components/redux/contacts/contacts-selectors'
+import contactsFetch from './Components/redux/contacts/contact-operations'
 // class Phonebook extends Component {
 //   state = {
 //     contacts: [
@@ -64,11 +65,15 @@ import * as actions from './Components/redux/contacts/contact-action'
 //     )
 //   }
 // }
-function Phonebook({ item, filter, addContact, filtredContacts, deleteContact }) {
-    // const onSubmit = (contact) => {
-        
-    //   }
-     const normalizedFilter = filter.toLowerCase()
+class Phonebook extends Component {
+  
+  componentDidMount() {
+    this.props.fetchContacts()
+  }
+
+  render() {
+    const { item, filter, addContact, filtredContacts, deleteContact } = this.props
+    const normalizedFilter = filter.toLowerCase()
   const filterContacts = item.filter(({ name }) => name.toLowerCase().includes(normalizedFilter))
   
   return (
@@ -84,19 +89,22 @@ function Phonebook({ item, filter, addContact, filtredContacts, deleteContact })
        
      </> 
    );
+  }
+     
 }
  
 
 const mapStateToProps = state => {
   return {
-    item: state.contacts.item,
-    filter:state.contacts.filter
+    item: contactSelectors.itemContact(state),
+    filter:contactSelectors.filterForContacts(state)
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addContact: (contact) => dispatch(actions.addContact(contact)),
-    deleteContact: (id) => dispatch(actions.deleteContact(id)),
+    addContact: (contact) => dispatch(contactsFetch.contactsAdd(contact)),
+    deleteContact: (id) => dispatch(contactsFetch.deleteContact(id)),
+    fetchContacts: () => dispatch(contactsFetch.fetchContacts())
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Phonebook)

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { PersistGate } from 'redux-persist/integration/react'
 import store from './Components/redux/store'
 import {Provider} from 'react-redux'
 console.log(store)
@@ -9,10 +8,8 @@ console.log(store)
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store.store}>
-    <PersistGate persistor={store.persistor}>
+    <Provider store={store}>
       <App />
-      </PersistGate>
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')

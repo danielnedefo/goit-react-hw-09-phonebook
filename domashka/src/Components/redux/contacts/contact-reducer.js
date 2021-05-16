@@ -1,22 +1,14 @@
 import { combineReducers } from 'redux'
 import { createReducer } from '@reduxjs/toolkit';
-import { addContact, deleteContact, filterContact } from './contact-action'
-import {persistReducer} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import {  fetchSuccess,deletereqSuccess, filterContact,reqSuccess } from './contact-action'
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist:'filter'
-}
+
+
 
 const item = createReducer([], {
-  [addContact]: (state, { payload }) => [...state, payload],
-  [deleteContact]: (state, { payload }) => {
-    const contacts = state
-    contacts.splice(payload, 1)
-    return contacts
-  }
+  [fetchSuccess]:(state,{payload}) => payload,
+  [reqSuccess]: (state, { payload }) => [...state, payload],
+  [deletereqSuccess]: (state, { payload }) => state.filter(({id}) => id !== payload)
 })
 const filter = createReducer('', {
   [filterContact]:(_, { payload }) => payload
@@ -26,9 +18,14 @@ const filter = createReducer('', {
   filter
  })
 
-const persistedReducer = persistReducer(persistConfig,rootReducer)
+// const persistedReducer = persistReducer(persistConfig,rootReducer)
 
-export default persistedReducer
+// { !!!!!!
+//     const contacts = state
+//     contacts.splice(payload, 1)
+//     return [...contacts]
+//   }
+export default rootReducer
 // const initialState = {
 //   item: [],
 //   filter: ""

@@ -1,7 +1,8 @@
-import { findDOMNode } from "react-dom";
 import {connect} from 'react-redux'
 import { v4 } from "uuid";
 import * as actions from '../redux/contacts/contact-action'
+import contactSelectors from '../redux/contacts/contacts-selectors'
+
 
 const Filter = ({ searchInputId, filter, onChange }) => {
   searchInputId = v4()
@@ -18,7 +19,7 @@ const Filter = ({ searchInputId, filter, onChange }) => {
 }
 const mapStateToProps = state => {
   return {
-    filter: state.filter
+    filter: contactSelectors.filterForContacts(state)
   }
 }
 const mapDispatchToProps = dispatch => {
