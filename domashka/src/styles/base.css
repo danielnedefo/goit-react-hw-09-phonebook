@@ -1,0 +1,29 @@
+.NavUL{
+  list-style: none;
+  display: flex;
+}
+.NavLink{
+font-size: 20px;
+  color:currentColor;
+  margin-right: 10px;
+  text-decoration: none;
+}
+.NavLink--active{
+  color: red;
+}
+.NavRoutes{
+  display: flex;
+}
+.NavBar{
+  display: flex;
+  justify-content: space-between;
+}
+.BtnsNav{
+    text-decoration: none;
+  list-style: none;
+}
+.NavBtn{
+  background-color: white;
+  border-color: white;
+  border:none;
+}

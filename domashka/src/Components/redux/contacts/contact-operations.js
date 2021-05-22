@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {makeRequest,fetchError,fetchRequest,fetchSuccess,reqSuccess,reqError,deleteRequest,deletereqSuccess,deletereqError} from './contact-action'
-axios.defaults.baseURL = ' http://localhost:4000'
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com'
 
 const fetchContacts = () => dispatch => {
   dispatch(fetchRequest())

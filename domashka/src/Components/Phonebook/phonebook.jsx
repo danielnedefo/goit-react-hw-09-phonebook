@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux'
 // import { v4 } from "uuid";
-import Filter from './Components/Filter/Filter'
-import ContactForm from './Components/ContactForm/ContactForm'
-import ContactListItem from './Components/ContactListItem/ContactListItem'
-import contactSelectors from './Components/redux/contacts/contacts-selectors'
-import contactsFetch from './Components/redux/contacts/contact-operations'
+import Filter from '../Filter/Filter'
+import ContactForm from '../ContactForm/ContactForm'
+import ContactListItem from '../ContactListItem/ContactListItem'
+import contactSelectors from '../redux/contacts/contacts-selectors'
+import contactsFetch from '../redux/contacts/contact-operations'
 // class Phonebook extends Component {
 //   state = {
 //     contacts: [
