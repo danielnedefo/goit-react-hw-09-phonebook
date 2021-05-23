@@ -1,14 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {useSelector} from 'react-redux'
 import '../../styles/base.css'
 import  authSelectors  from '../redux/auth/auth-selectors'
 import AuthNav from './AuthNav'
 import Navigation from './Navigation'
 import UserMenu from './UserMenu'
 
-
-const AppBar = ({ isAuthinficated }) => {
-  
+const AppBar = () => {
+  const isAuthinficated = useSelector(authSelectors.getAutinficated)
   return (
     <div className="NavBar">
     <ul className="NavUL">
@@ -20,8 +19,5 @@ const AppBar = ({ isAuthinficated }) => {
         </div>
    );
 }
-const mapStateToProps = (state) => ({
-  isAuthinficated:authSelectors.getAutinficated(state)
-})
 
-export default connect(mapStateToProps)(AppBar);
+export default AppBar

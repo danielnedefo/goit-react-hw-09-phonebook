@@ -1,75 +1,24 @@
-import React, { Component,useState } from 'react'
+import React from 'react'
 import LoginForm from './LoginForm/LoginForm'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {login} from '../redux/auth/auth-operations'
-// class Login extends Component{
-//   state = {
-//     email: "",
-//     password:""
-//   }
-//   handleChange = ({ target }) => {
-//     this.setState(() => {
-//       return {
-//       [target.name]:target.value
-//     }
-//   })
-//   }
-//   onSubmit = (e) => {
-    
-//     e.preventDefault()
-//     this.props.onLogin(this.state)
-//   this.resetQuery()  
-//   }
-//   resetQuery = () => {
-//     this.setState(() => {
-//       return {
-//         email: "",
-//         password:""
-//       }
-//     })
-//   }
-//   render() {
-//     const {email,password} = this.state
-//     const {handleChange,onSubmit} = this
-//     return (
-//       <>
-//         <LoginForm data={{email,password}} handleChange={handleChange} onSubmit={onSubmit}/>
-//         </>
-//     )
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => ({
-//   onLogin: (data) => dispatch(login(data))
-// })
-
-
- function Login({onLogin}) {
-  const [loginData, setData] = useState({
-    email: '',
-    password:''
-  })
-  const handleChange = ({target}) => {
-    setData({
-      ...loginData,
-      [target.name]: target.value,
-
-    })}
+import { initialState } from './initialState'
+import useForm from '../../shared/hooks/useForm'
+export default function Login() {
+  const [data, handleChange, , setDataForm] = useForm(initialState)
+  const dispatch = useDispatch()
   const onSubmit = (e) => {
     e.preventDefault()
-    onLogin(loginData)
+    dispatch(login(data))
     resetQuery()
    }
    const resetQuery = () => {
-     setData(loginData)
+     setDataForm(data)
    }
   return (
      <>
-         <LoginForm data={loginData} handleChange={handleChange} onSubmit={onSubmit}/>
+         <LoginForm data={data} handleChange={handleChange} onSubmit={onSubmit}/>
          </>
   )
  }
-const mapDispatchToProps = dispatch => ({
-  onLogin: (data) => dispatch(login(data))
-})
-export default connect(null,mapDispatchToProps)(Login)
+

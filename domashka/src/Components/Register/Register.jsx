@@ -1,48 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 import RegisterForm from './RegisterForm/RegisterForm'
-import { connect } from 'react-redux'
-import {register} from '../redux/auth/auth-operations'
+import { useDispatch } from 'react-redux'
+import { register } from '../redux/auth/auth-operations'
+import {initialState} from './initialState'
+import useForm from '../../shared/hooks/useForm'
 
-class Register extends Component{
-state = {
-  name: "",
-  email: "",
-  password:""
-  }
-  handleChange = ({ target }) => {
-    this.setState(() => {
-      return {
-      [target.name]:target.value
-    }
-  })
-  }
-  onSubmit = (e) => {
+function Register() {
+  const [data,handleChange,,setDataForm] = useForm(initialState)
+   const dispatch = useDispatch()
+  const onSubmit = (e) => {
     e.preventDefault()
-    this.props.onRegister(this.state)
-    this.resetQuery()
+    dispatch(register(data))
+    resetQuery()
   }
-    resetQuery = () => {
-    this.setState(() => {
-      return {
-        name: "",
-        email: "",
-        password:""
-      }
-    })
+  const resetQuery = () => {
+    setDataForm(data)
   }
-  render() {
-    const {name,email,password} = this.state
-    const {onSubmit,handleChange} = this
-    return (
-      <>
-  <RegisterForm data={{name,email,password}} onSubmit={onSubmit} handleChange={handleChange}/>
-        </>
+  return (
+      <RegisterForm data={data} onSubmit={onSubmit} handleChange={handleChange}/>
     )
-  }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onRegister: (data) => dispatch(register(data))
-})
 
-export default connect(null,mapDispatchToProps)(Register)
+export default Register

@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
-import {connect} from 'react-redux'
+import { useSelector, shallowEqual } from 'react-redux'
+import  authSelectors  from '../redux/auth/auth-selectors'
 import  '../../styles/base.css'
 
-const Navigation = ({isAuthinficated}) => {
+const Navigation = () => {
+  const isAuthinficated = useSelector(authSelectors.getAutinficated, shallowEqual)
   return (
     <>
       <li><NavLink exact className="NavLink" activeClassName="NavLink--active" to="/">Home</NavLink></li>
@@ -12,11 +14,9 @@ const Navigation = ({isAuthinficated}) => {
    );
 }
 
-const mapStateToProps = (state) => ({
-  isAuthinficated: state.auth.token
-})
 
 
 
 
-export default connect(mapStateToProps)(Navigation);
+
+export default Navigation;
